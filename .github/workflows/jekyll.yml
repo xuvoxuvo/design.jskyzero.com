@@ -44,8 +44,10 @@ jobs:
           ruby-version: '3.3.0'
           bundler-cache: true # 自动运行 bundle install 并缓存 gems
 
-      - name: 验证 Ruby 插件
-        run: bundle exec ruby scripts/verify-plugins.rb
+      - name: 验证 Ruby 插件及页脚开关
+        run: |
+          bundle exec ruby scripts/verify-plugins.rb
+          bundle exec ruby scripts/verify-hits-toggle.rb
 
       - name: 构建 Jekyll 站点
         run: bundle exec jekyll build --config _config.yml,_config.production.yml

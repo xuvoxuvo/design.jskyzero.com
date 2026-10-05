@@ -44,6 +44,9 @@ repository and ordinary local builds. Keep the overlay's base exclusions in sync
 with `_config.yml`, because Jekyll replaces arrays when merging configuration.
 
 Run Ruby plugin regression checks with `bundle exec ruby scripts/verify-plugins.rb`.
+Hits statistics are disabled by default. Set `hits.enabled: true` in `_config.yml`
+to enable the badge. Failed or timed-out requests hide it; no cached count or
+unavailable badge is shown. When disabled, neither the badge nor its script is rendered.
 For WSL dependencies installed locally, prefix Bundler commands with
 `BUNDLE_PATH=vendor/bundle`.
 
