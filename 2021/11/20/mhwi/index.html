@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结构拆解-怪猎冰原 | 设计者笔记</title>
+  <link rel="icon" type="image/png" href="/assets/img/logo.2.png">
+  <link rel="preload" as="image" href="/assets/img/logo.2.png" fetchpriority="high">
+
+  <!-- 资源预连接 -->
+  <link rel="preconnect" href="https://fontsapi.zeoseven.com" crossorigin="">
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin="">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://www.clarity.ms">
+  <link rel="preconnect" href="https://designer-notes.disqus.com">
+
+  <!-- 字体异步加载，加载完成后切换 rel 为 stylesheet -->
+  <link rel="preload" as="style" href="https://fontsapi.zeoseven.com/159/main/result.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=jetbrains-mono:400&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/159/main/result.css">
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=jetbrains-mono:400&amp;display=swap">
+  </noscript><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="结构拆解-怪猎冰原">
+<meta property="og:locale" content="zh_CN">
+<meta name="description" content="体系化拆解《怪物猎人 世界：冰原》，并从中学习。">
+<meta property="og:description" content="体系化拆解《怪物猎人 世界：冰原》，并从中学习。">
+<link rel="canonical" href="https://design.jskyzero.com/2021/11/20/mhwi/">
+<meta property="og:url" content="https://design.jskyzero.com/2021/11/20/mhwi/">
+<meta property="og:site_name" content="设计者笔记">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-11-20T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="结构拆解-怪猎冰原">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-11-20T00:00:00+00:00","datePublished":"2021-11-20T00:00:00+00:00","description":"体系化拆解《怪物猎人 世界：冰原》，并从中学习。","headline":"结构拆解-怪猎冰原","mainEntityOfPage":{"@type":"WebPage","@id":"https://design.jskyzero.com/2021/11/20/mhwi/"},"url":"https://design.jskyzero.com/2021/11/20/mhwi/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="stylesheet" type="text/css" href="/assets/main-light.css"><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.addEventListener('load', function () {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-V2SSPG3YGX';
+    document.head.appendChild(script);
+
+    gtag('js', new Date());
+    gtag('config', 'G-V2SSPG3YGX');
+  });
+
+</script>
+<!-- clarity-analytics.html - Microsoft Clarity tracking snippet. -->
+<script type="text/javascript">
+  window.addEventListener('load', function () {
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "jt8gmzbake");
+  });
+</script>
+</head>
+<body data-env="production">
+    <div class="site-shell page-wrapper">
+<aside class="nav-sidebar sidebar" id="sidebar">
+  <button class="sidebar-close" type="button" aria-controls="sidebar" aria-expanded="true">×</button>
+
+  <!-- 搜索框 -->
+  <div class="sidebar-search">
+    <input type="text" id="search-input" aria-label="search" placeholder=" ">
+    <span class="sidebar-search__prompt" aria-hidden="true">search...</span>
+    <div id="search-results" class="search-results"></div>
+  </div>
+
+  <!-- 文章分类导航 -->
+  <nav class="sidebar-nav" aria-label="文章分类">
+    <section class="sidebar-group">
+          <div class="sidebar-group-title">动作游戏设计</div>
+          <ul><li>
+                  <a href="/2024/05/14/ActionGameDesign/">动作游戏的本质</a><span class="pro-star">⭐️</span></li><li>
+                  <a href="/2025/03/25/SSS/">动作游戏设计的SSS方法</a><span class="pro-star">⭐️</span></li><li>
+                  <a href="/2024/04/04/12_action_design_type/">12种动作机制与160+案例</a><span class="pro-star">⭐️</span></li><li>
+                  <a href="/2023/11/13/ACT_with_GDC/">GDC动作游戏分享精选</a></li></ul>
+        </section><section class="sidebar-group">
+          <div class="sidebar-group-title">动作游戏分析</div>
+          <ul><li>
+                  <a href="/2023/10/10/sekiro_lion_tamarin_AI/">拆包看狮子猿AI设计</a><span class="pro-star">⭐️</span></li><li>
+                  <a href="/2023/02/17/sekiro_lion_tamarin/">拆包看狮子猿动作设计</a></li><li>
+                  <a href="/2022/07/22/mhrsb_ai/">怪物猎人中的AI出招设计</a></li><li>
+                  <a href="/2022/09/22/wolong_action_system/">卧龙气势槽设计杂谈</a></li></ul>
+        </section><section class="sidebar-group">
+          <div class="sidebar-group-title">游戏AI</div>
+          <ul><li>
+                  <a href="/2021/07/19/GameAI/">游戏AI与行为树</a><span class="pro-star">⭐️</span></li><li>
+                  <a href="/2021/09/09/RandomInGameAI/">游戏AI中的高级随机算法</a></li><li>
+                  <a href="/2022/05/24/GameAISkill/">游戏AI常用架构技巧</a></li><li>
+                  <a href="/2023/03/27/GameAIProIndex/">GameAIPro·总集篇</a></li></ul>
+        </section><section class="sidebar-group">
+          <div class="sidebar-group-title">专题报告</div>
+          <ul><li>
+                  <a href="/2024/01/26/dota2/">状态效果-Dota2</a><span class="pro-star">⭐️</span></li><li class="current">
+                  <a href="/2021/11/20/mhwi/" class="current" aria-current="page">结构拆解-怪猎冰原</a></li><li>
+                  <a href="/2019/10/15/%E6%A8%AA%E6%9D%BF%E6%A0%BC%E6%96%97/">横板格斗-多人共斗</a></li><li>
+                  <a href="/2019/10/15/%E5%BC%80%E6%94%BE%E4%B8%96%E7%95%8C/">开放世界-拟真的度</a></li><li>
+                  <a href="/2021/09/21/eastward/">结构拆解-风来之国</a></li></ul>
+        </section><section class="sidebar-group">
+          <div class="sidebar-group-title">一期一会</div>
+          <ul><li>
+                  <a href="/2017/10/22/MiniGame/">一些尝试 / Mini Game</a></li><li>
+                  <a href="/2020/01/05/sakura_nagashi/">桜流し / Sakura Nagashi</a></li><li>
+                  <a href="/2021/01/17/one_last_kiss/">最後のキス / One Last Kiss</a></li></ul>
+        </section><section class="sidebar-group">
+          <div class="sidebar-group-title">游戏开发</div>
+          <ul><li>
+                  <a href="/2021/08/18/LevelDesignEditor/">编辑器：若干好的特性</a></li><li>
+                  <a href="/2022/02/15/GameDesignAbility/">游戏设计：能力模型</a></li><li>
+                  <a href="/2023/10/23/BattleDesignAbility/">游戏设计：战斗策划要求</a></li></ul>
+        </section><section class="sidebar-group">
+          <div class="sidebar-group-title">摘录与杂谈</div>
+          <ul><li>
+                  <a href="/2021/11/14/possessiveness/">摘录：《自制力》</a><span class="pro-star">⭐️</span></li><li>
+                  <a href="/2025/07/05/collect/">归档：零碎文章集合</a></li></ul>
+        </section></nav>
+</aside>
+<div class="sidebar-overlay" data-sidebar-close=""></div>
+      <div class="site-content content-area">
+        <div class="container"><header class="site-header">
+  <div class="site-menu menu">
+    <a class="site-logo" href="/"><img src="/assets/img/logo.2.png" alt="设计者笔记" width="128" height="128" fetchpriority="high" decoding="async"></a>
+    <button class="sidebar-toggle" type="button" aria-controls="sidebar" aria-expanded="false">☰</button>
+    <ul class="site-menu__items"><li class="site-menu__item"><a href="/">/Home</a></li><li class="site-menu__item"><a href="/github/">/Github</a></li><li class="site-menu__item"><a href="/Resume/">/Resume</a></li><li class="site-menu__item"><a href="/project/">/Project</a></li></ul>
+  </div>
+</header>
+<main class="site-main">
+            
+<p>体系化拆解《怪物猎人 世界：冰原》，并从中学习。</p>
+
+<!--more-->
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/01.jpg-786ffaec7012c73e2a28ad6129d4be53a0f11e8b00df12725040f046774a0ef7-480.webp 480w, /assets/generated/img/gameplay/mhwi/01.jpg-786ffaec7012c73e2a28ad6129d4be53a0f11e8b00df12725040f046774a0ef7-760.webp 760w, /assets/generated/img/gameplay/mhwi/01.jpg-786ffaec7012c73e2a28ad6129d4be53a0f11e8b00df12725040f046774a0ef7-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/01.jpg-786ffaec7012c73e2a28ad6129d4be53a0f11e8b00df12725040f046774a0ef7-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/01.jpg" alt="" width="1920" height="1080" loading="eager" decoding="async" fetchpriority="high"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/02.jpg-076c4c810c70f87f4ed3e727a7b06628da54e11974eed298f2a0135a6e5b3dc8-480.webp 480w, /assets/generated/img/gameplay/mhwi/02.jpg-076c4c810c70f87f4ed3e727a7b06628da54e11974eed298f2a0135a6e5b3dc8-760.webp 760w, /assets/generated/img/gameplay/mhwi/02.jpg-076c4c810c70f87f4ed3e727a7b06628da54e11974eed298f2a0135a6e5b3dc8-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/02.jpg-076c4c810c70f87f4ed3e727a7b06628da54e11974eed298f2a0135a6e5b3dc8-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/02.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/03.jpg-8a5c8c14b2e976b34200355ae0dea29d95223bfb87737857fe9dec892e638229-480.webp 480w, /assets/generated/img/gameplay/mhwi/03.jpg-8a5c8c14b2e976b34200355ae0dea29d95223bfb87737857fe9dec892e638229-760.webp 760w, /assets/generated/img/gameplay/mhwi/03.jpg-8a5c8c14b2e976b34200355ae0dea29d95223bfb87737857fe9dec892e638229-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/03.jpg-8a5c8c14b2e976b34200355ae0dea29d95223bfb87737857fe9dec892e638229-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/03.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/04.jpg-50a5edf9d3b668dd66239e94bc62abf493f7b61ccc8fb5187a87505d40f56224-480.webp 480w, /assets/generated/img/gameplay/mhwi/04.jpg-50a5edf9d3b668dd66239e94bc62abf493f7b61ccc8fb5187a87505d40f56224-760.webp 760w, /assets/generated/img/gameplay/mhwi/04.jpg-50a5edf9d3b668dd66239e94bc62abf493f7b61ccc8fb5187a87505d40f56224-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/04.jpg-50a5edf9d3b668dd66239e94bc62abf493f7b61ccc8fb5187a87505d40f56224-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/04.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/05.jpg-42f1f689d4b7392275460b20a39b7498c4e289b06b56b2084ef8e3114449507f-480.webp 480w, /assets/generated/img/gameplay/mhwi/05.jpg-42f1f689d4b7392275460b20a39b7498c4e289b06b56b2084ef8e3114449507f-760.webp 760w, /assets/generated/img/gameplay/mhwi/05.jpg-42f1f689d4b7392275460b20a39b7498c4e289b06b56b2084ef8e3114449507f-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/05.jpg-42f1f689d4b7392275460b20a39b7498c4e289b06b56b2084ef8e3114449507f-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/05.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/06.jpg-9d94f2fe737b6d82e2666a95c8e8d152756e6692c5026f7869feb993ef937e2e-480.webp 480w, /assets/generated/img/gameplay/mhwi/06.jpg-9d94f2fe737b6d82e2666a95c8e8d152756e6692c5026f7869feb993ef937e2e-760.webp 760w, /assets/generated/img/gameplay/mhwi/06.jpg-9d94f2fe737b6d82e2666a95c8e8d152756e6692c5026f7869feb993ef937e2e-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/06.jpg-9d94f2fe737b6d82e2666a95c8e8d152756e6692c5026f7869feb993ef937e2e-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/06.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/07.jpg-fc51c99afdeffda312bc04b94ddf95e011b20b24360afbfb093e1b81e825aefc-480.webp 480w, /assets/generated/img/gameplay/mhwi/07.jpg-fc51c99afdeffda312bc04b94ddf95e011b20b24360afbfb093e1b81e825aefc-760.webp 760w, /assets/generated/img/gameplay/mhwi/07.jpg-fc51c99afdeffda312bc04b94ddf95e011b20b24360afbfb093e1b81e825aefc-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/07.jpg-fc51c99afdeffda312bc04b94ddf95e011b20b24360afbfb093e1b81e825aefc-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/07.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/08.jpg-a7bfbaba3ea2f609d1cc1edb299edd97a529f68981c8a933f598f150c179449c-480.webp 480w, /assets/generated/img/gameplay/mhwi/08.jpg-a7bfbaba3ea2f609d1cc1edb299edd97a529f68981c8a933f598f150c179449c-760.webp 760w, /assets/generated/img/gameplay/mhwi/08.jpg-a7bfbaba3ea2f609d1cc1edb299edd97a529f68981c8a933f598f150c179449c-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/08.jpg-a7bfbaba3ea2f609d1cc1edb299edd97a529f68981c8a933f598f150c179449c-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/08.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/09.jpg-01d1222f0f865c2d8aa63c58884d3c65f026ea32899bf6f2546b3e6b52fcf6f3-480.webp 480w, /assets/generated/img/gameplay/mhwi/09.jpg-01d1222f0f865c2d8aa63c58884d3c65f026ea32899bf6f2546b3e6b52fcf6f3-760.webp 760w, /assets/generated/img/gameplay/mhwi/09.jpg-01d1222f0f865c2d8aa63c58884d3c65f026ea32899bf6f2546b3e6b52fcf6f3-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/09.jpg-01d1222f0f865c2d8aa63c58884d3c65f026ea32899bf6f2546b3e6b52fcf6f3-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/09.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/10.jpg-0ba058a6b8ed2ab8eedb23417c6255b4a9265b57a0a951d22c3912e9cd77a240-480.webp 480w, /assets/generated/img/gameplay/mhwi/10.jpg-0ba058a6b8ed2ab8eedb23417c6255b4a9265b57a0a951d22c3912e9cd77a240-760.webp 760w, /assets/generated/img/gameplay/mhwi/10.jpg-0ba058a6b8ed2ab8eedb23417c6255b4a9265b57a0a951d22c3912e9cd77a240-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/10.jpg-0ba058a6b8ed2ab8eedb23417c6255b4a9265b57a0a951d22c3912e9cd77a240-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/10.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/11.jpg-047f71da76dcfa3f7512908a99510ac9199d79653a1e26aaa712ef95137484fb-480.webp 480w, /assets/generated/img/gameplay/mhwi/11.jpg-047f71da76dcfa3f7512908a99510ac9199d79653a1e26aaa712ef95137484fb-760.webp 760w, /assets/generated/img/gameplay/mhwi/11.jpg-047f71da76dcfa3f7512908a99510ac9199d79653a1e26aaa712ef95137484fb-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/11.jpg-047f71da76dcfa3f7512908a99510ac9199d79653a1e26aaa712ef95137484fb-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/11.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/12.jpg-b527e505c9c33d9a996bb082a28829ff1be871c7afc524d043eb676098904901-480.webp 480w, /assets/generated/img/gameplay/mhwi/12.jpg-b527e505c9c33d9a996bb082a28829ff1be871c7afc524d043eb676098904901-760.webp 760w, /assets/generated/img/gameplay/mhwi/12.jpg-b527e505c9c33d9a996bb082a28829ff1be871c7afc524d043eb676098904901-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/12.jpg-b527e505c9c33d9a996bb082a28829ff1be871c7afc524d043eb676098904901-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/12.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/13.jpg-00060c77234b81a0e7b70b00869e207da1ad492861870cfd6073ab1e71e55d57-480.webp 480w, /assets/generated/img/gameplay/mhwi/13.jpg-00060c77234b81a0e7b70b00869e207da1ad492861870cfd6073ab1e71e55d57-760.webp 760w, /assets/generated/img/gameplay/mhwi/13.jpg-00060c77234b81a0e7b70b00869e207da1ad492861870cfd6073ab1e71e55d57-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/13.jpg-00060c77234b81a0e7b70b00869e207da1ad492861870cfd6073ab1e71e55d57-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/13.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/14.jpg-f6748fac7feeab8fd9127916b2e5c939006630e3f82daccacf6344f91285fe83-480.webp 480w, /assets/generated/img/gameplay/mhwi/14.jpg-f6748fac7feeab8fd9127916b2e5c939006630e3f82daccacf6344f91285fe83-760.webp 760w, /assets/generated/img/gameplay/mhwi/14.jpg-f6748fac7feeab8fd9127916b2e5c939006630e3f82daccacf6344f91285fe83-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/14.jpg-f6748fac7feeab8fd9127916b2e5c939006630e3f82daccacf6344f91285fe83-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/14.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/15.jpg-54884e666697fb6d0a587c93c39ed15211c4846f32cd80b2817fd03b11d846ee-480.webp 480w, /assets/generated/img/gameplay/mhwi/15.jpg-54884e666697fb6d0a587c93c39ed15211c4846f32cd80b2817fd03b11d846ee-760.webp 760w, /assets/generated/img/gameplay/mhwi/15.jpg-54884e666697fb6d0a587c93c39ed15211c4846f32cd80b2817fd03b11d846ee-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/15.jpg-54884e666697fb6d0a587c93c39ed15211c4846f32cd80b2817fd03b11d846ee-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/15.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/16.jpg-b0300934a88caa428595dcc0fdd850a913e07d73ffa94709bcb79f4bc9048f32-480.webp 480w, /assets/generated/img/gameplay/mhwi/16.jpg-b0300934a88caa428595dcc0fdd850a913e07d73ffa94709bcb79f4bc9048f32-760.webp 760w, /assets/generated/img/gameplay/mhwi/16.jpg-b0300934a88caa428595dcc0fdd850a913e07d73ffa94709bcb79f4bc9048f32-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/16.jpg-b0300934a88caa428595dcc0fdd850a913e07d73ffa94709bcb79f4bc9048f32-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/16.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/17.jpg-f6db127c519bee948d3d8dad0cf240b6fa2b984e43a89c72e6690dba8a1eb78d-480.webp 480w, /assets/generated/img/gameplay/mhwi/17.jpg-f6db127c519bee948d3d8dad0cf240b6fa2b984e43a89c72e6690dba8a1eb78d-760.webp 760w, /assets/generated/img/gameplay/mhwi/17.jpg-f6db127c519bee948d3d8dad0cf240b6fa2b984e43a89c72e6690dba8a1eb78d-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/17.jpg-f6db127c519bee948d3d8dad0cf240b6fa2b984e43a89c72e6690dba8a1eb78d-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/17.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/18.jpg-74d44ef9323e06a4c691440ed4f1c05fbcbe4a5b27d5c6ba27f8e80c3229e5da-480.webp 480w, /assets/generated/img/gameplay/mhwi/18.jpg-74d44ef9323e06a4c691440ed4f1c05fbcbe4a5b27d5c6ba27f8e80c3229e5da-760.webp 760w, /assets/generated/img/gameplay/mhwi/18.jpg-74d44ef9323e06a4c691440ed4f1c05fbcbe4a5b27d5c6ba27f8e80c3229e5da-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/18.jpg-74d44ef9323e06a4c691440ed4f1c05fbcbe4a5b27d5c6ba27f8e80c3229e5da-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/18.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/19.jpg-87007a44bba3ef1368bdaa2f8beed307b7429093cc873323123279c26087eb64-480.webp 480w, /assets/generated/img/gameplay/mhwi/19.jpg-87007a44bba3ef1368bdaa2f8beed307b7429093cc873323123279c26087eb64-760.webp 760w, /assets/generated/img/gameplay/mhwi/19.jpg-87007a44bba3ef1368bdaa2f8beed307b7429093cc873323123279c26087eb64-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/19.jpg-87007a44bba3ef1368bdaa2f8beed307b7429093cc873323123279c26087eb64-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/19.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/20.jpg-4ce023758ac45003665ba7c7ab6d0945702a246200743940318dd1c5b6b42e24-480.webp 480w, /assets/generated/img/gameplay/mhwi/20.jpg-4ce023758ac45003665ba7c7ab6d0945702a246200743940318dd1c5b6b42e24-760.webp 760w, /assets/generated/img/gameplay/mhwi/20.jpg-4ce023758ac45003665ba7c7ab6d0945702a246200743940318dd1c5b6b42e24-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/20.jpg-4ce023758ac45003665ba7c7ab6d0945702a246200743940318dd1c5b6b42e24-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/20.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/21.jpg-1ea3d401506f9174591838f3b34b1b9231aab67b0a31a92f83571cb686f5b081-480.webp 480w, /assets/generated/img/gameplay/mhwi/21.jpg-1ea3d401506f9174591838f3b34b1b9231aab67b0a31a92f83571cb686f5b081-760.webp 760w, /assets/generated/img/gameplay/mhwi/21.jpg-1ea3d401506f9174591838f3b34b1b9231aab67b0a31a92f83571cb686f5b081-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/21.jpg-1ea3d401506f9174591838f3b34b1b9231aab67b0a31a92f83571cb686f5b081-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/21.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/22.jpg-386f7f4f127c2f64cc43d8d519b8fdb834511c24a96896d2a124f136358c5050-480.webp 480w, /assets/generated/img/gameplay/mhwi/22.jpg-386f7f4f127c2f64cc43d8d519b8fdb834511c24a96896d2a124f136358c5050-760.webp 760w, /assets/generated/img/gameplay/mhwi/22.jpg-386f7f4f127c2f64cc43d8d519b8fdb834511c24a96896d2a124f136358c5050-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/22.jpg-386f7f4f127c2f64cc43d8d519b8fdb834511c24a96896d2a124f136358c5050-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/22.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/23.jpg-d00ec483449f9e9ea1aba46263f11c363c9e096f9c50e0f5b49fd872b7c7edd0-480.webp 480w, /assets/generated/img/gameplay/mhwi/23.jpg-d00ec483449f9e9ea1aba46263f11c363c9e096f9c50e0f5b49fd872b7c7edd0-760.webp 760w, /assets/generated/img/gameplay/mhwi/23.jpg-d00ec483449f9e9ea1aba46263f11c363c9e096f9c50e0f5b49fd872b7c7edd0-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/23.jpg-d00ec483449f9e9ea1aba46263f11c363c9e096f9c50e0f5b49fd872b7c7edd0-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/23.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/24.jpg-c5a5a20aa661e787c75f07a8b327a3d38d76090b56fd63f68209501566f2d305-480.webp 480w, /assets/generated/img/gameplay/mhwi/24.jpg-c5a5a20aa661e787c75f07a8b327a3d38d76090b56fd63f68209501566f2d305-760.webp 760w, /assets/generated/img/gameplay/mhwi/24.jpg-c5a5a20aa661e787c75f07a8b327a3d38d76090b56fd63f68209501566f2d305-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/24.jpg-c5a5a20aa661e787c75f07a8b327a3d38d76090b56fd63f68209501566f2d305-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/24.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/25.jpg-e332a7bc89321224303b516f4697c72fc9374ad0dd2ce0d871a975c247e876ff-480.webp 480w, /assets/generated/img/gameplay/mhwi/25.jpg-e332a7bc89321224303b516f4697c72fc9374ad0dd2ce0d871a975c247e876ff-760.webp 760w, /assets/generated/img/gameplay/mhwi/25.jpg-e332a7bc89321224303b516f4697c72fc9374ad0dd2ce0d871a975c247e876ff-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/25.jpg-e332a7bc89321224303b516f4697c72fc9374ad0dd2ce0d871a975c247e876ff-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/25.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/26.jpg-c9ca642963e66709af168b486f031fec5a82ed001bf147c0a0f489cae2ff8707-480.webp 480w, /assets/generated/img/gameplay/mhwi/26.jpg-c9ca642963e66709af168b486f031fec5a82ed001bf147c0a0f489cae2ff8707-760.webp 760w, /assets/generated/img/gameplay/mhwi/26.jpg-c9ca642963e66709af168b486f031fec5a82ed001bf147c0a0f489cae2ff8707-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/26.jpg-c9ca642963e66709af168b486f031fec5a82ed001bf147c0a0f489cae2ff8707-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/26.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/27.jpg-7fd03358a09a2fad5687e10dd887a803d46e2abe42c7aa778920e7121c5fc787-480.webp 480w, /assets/generated/img/gameplay/mhwi/27.jpg-7fd03358a09a2fad5687e10dd887a803d46e2abe42c7aa778920e7121c5fc787-760.webp 760w, /assets/generated/img/gameplay/mhwi/27.jpg-7fd03358a09a2fad5687e10dd887a803d46e2abe42c7aa778920e7121c5fc787-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/27.jpg-7fd03358a09a2fad5687e10dd887a803d46e2abe42c7aa778920e7121c5fc787-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/27.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/28.jpg-d48d55d7e4efcbdb9decf2e634b205db9f726c2e83b57629ae25869a6fa6f52a-480.webp 480w, /assets/generated/img/gameplay/mhwi/28.jpg-d48d55d7e4efcbdb9decf2e634b205db9f726c2e83b57629ae25869a6fa6f52a-760.webp 760w, /assets/generated/img/gameplay/mhwi/28.jpg-d48d55d7e4efcbdb9decf2e634b205db9f726c2e83b57629ae25869a6fa6f52a-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/28.jpg-d48d55d7e4efcbdb9decf2e634b205db9f726c2e83b57629ae25869a6fa6f52a-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/28.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/29.jpg-d35795f71d03901332074796b6743cd665dd7c529e568ef633b077ab2bfdb48c-480.webp 480w, /assets/generated/img/gameplay/mhwi/29.jpg-d35795f71d03901332074796b6743cd665dd7c529e568ef633b077ab2bfdb48c-760.webp 760w, /assets/generated/img/gameplay/mhwi/29.jpg-d35795f71d03901332074796b6743cd665dd7c529e568ef633b077ab2bfdb48c-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/29.jpg-d35795f71d03901332074796b6743cd665dd7c529e568ef633b077ab2bfdb48c-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/29.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/30.jpg-c127824d81376034847368959ee70deee51bb0bbe729e1ca3e16316ffac440f1-480.webp 480w, /assets/generated/img/gameplay/mhwi/30.jpg-c127824d81376034847368959ee70deee51bb0bbe729e1ca3e16316ffac440f1-760.webp 760w, /assets/generated/img/gameplay/mhwi/30.jpg-c127824d81376034847368959ee70deee51bb0bbe729e1ca3e16316ffac440f1-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/30.jpg-c127824d81376034847368959ee70deee51bb0bbe729e1ca3e16316ffac440f1-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/30.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/31.jpg-289d1e095c435919dbf9b3c5053db2dcd3508f891c3a6a261084c81937028c75-480.webp 480w, /assets/generated/img/gameplay/mhwi/31.jpg-289d1e095c435919dbf9b3c5053db2dcd3508f891c3a6a261084c81937028c75-760.webp 760w, /assets/generated/img/gameplay/mhwi/31.jpg-289d1e095c435919dbf9b3c5053db2dcd3508f891c3a6a261084c81937028c75-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/31.jpg-289d1e095c435919dbf9b3c5053db2dcd3508f891c3a6a261084c81937028c75-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/31.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/32.jpg-380975266946eff0fd6a6cef10cfc219f56e08f64578d664aac0712edb365d67-480.webp 480w, /assets/generated/img/gameplay/mhwi/32.jpg-380975266946eff0fd6a6cef10cfc219f56e08f64578d664aac0712edb365d67-760.webp 760w, /assets/generated/img/gameplay/mhwi/32.jpg-380975266946eff0fd6a6cef10cfc219f56e08f64578d664aac0712edb365d67-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/32.jpg-380975266946eff0fd6a6cef10cfc219f56e08f64578d664aac0712edb365d67-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/32.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/33.jpg-b10b1a64aa6dfe750c4c1ff233f30eb642cbbb5016a742e834fe479a73968394-480.webp 480w, /assets/generated/img/gameplay/mhwi/33.jpg-b10b1a64aa6dfe750c4c1ff233f30eb642cbbb5016a742e834fe479a73968394-760.webp 760w, /assets/generated/img/gameplay/mhwi/33.jpg-b10b1a64aa6dfe750c4c1ff233f30eb642cbbb5016a742e834fe479a73968394-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/33.jpg-b10b1a64aa6dfe750c4c1ff233f30eb642cbbb5016a742e834fe479a73968394-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/33.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/34.jpg-4f76cc5bb9764531b3b8319878e24d70a982cc1300c766b249894af0cc0839bb-480.webp 480w, /assets/generated/img/gameplay/mhwi/34.jpg-4f76cc5bb9764531b3b8319878e24d70a982cc1300c766b249894af0cc0839bb-760.webp 760w, /assets/generated/img/gameplay/mhwi/34.jpg-4f76cc5bb9764531b3b8319878e24d70a982cc1300c766b249894af0cc0839bb-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/34.jpg-4f76cc5bb9764531b3b8319878e24d70a982cc1300c766b249894af0cc0839bb-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/34.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/35.jpg-7984b4c37ada89a5ad75bb264f1bd364d58bc8d5aafe77d3e217285d6de02910-480.webp 480w, /assets/generated/img/gameplay/mhwi/35.jpg-7984b4c37ada89a5ad75bb264f1bd364d58bc8d5aafe77d3e217285d6de02910-760.webp 760w, /assets/generated/img/gameplay/mhwi/35.jpg-7984b4c37ada89a5ad75bb264f1bd364d58bc8d5aafe77d3e217285d6de02910-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/35.jpg-7984b4c37ada89a5ad75bb264f1bd364d58bc8d5aafe77d3e217285d6de02910-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/35.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/36.jpg-28b294d24aafe9c10027ae2f63d0327ba5057615fa84739462849d9731addaa4-480.webp 480w, /assets/generated/img/gameplay/mhwi/36.jpg-28b294d24aafe9c10027ae2f63d0327ba5057615fa84739462849d9731addaa4-760.webp 760w, /assets/generated/img/gameplay/mhwi/36.jpg-28b294d24aafe9c10027ae2f63d0327ba5057615fa84739462849d9731addaa4-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/36.jpg-28b294d24aafe9c10027ae2f63d0327ba5057615fa84739462849d9731addaa4-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/36.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/37.jpg-9a3e17126ff840fba4b130b00b835d0e83f956439172b2b1eb9f3234c47e8e91-480.webp 480w, /assets/generated/img/gameplay/mhwi/37.jpg-9a3e17126ff840fba4b130b00b835d0e83f956439172b2b1eb9f3234c47e8e91-760.webp 760w, /assets/generated/img/gameplay/mhwi/37.jpg-9a3e17126ff840fba4b130b00b835d0e83f956439172b2b1eb9f3234c47e8e91-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/37.jpg-9a3e17126ff840fba4b130b00b835d0e83f956439172b2b1eb9f3234c47e8e91-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/37.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+<p><picture><source type="image/webp" srcset="/assets/generated/img/gameplay/mhwi/38.jpg-0f212896617e80d8c6abf492d0842a3ce9ea5372c69ebd8a98c70ed628daafa0-480.webp 480w, /assets/generated/img/gameplay/mhwi/38.jpg-0f212896617e80d8c6abf492d0842a3ce9ea5372c69ebd8a98c70ed628daafa0-760.webp 760w, /assets/generated/img/gameplay/mhwi/38.jpg-0f212896617e80d8c6abf492d0842a3ce9ea5372c69ebd8a98c70ed628daafa0-1140.webp 1140w, /assets/generated/img/gameplay/mhwi/38.jpg-0f212896617e80d8c6abf492d0842a3ce9ea5372c69ebd8a98c70ed628daafa0-1520.webp 1520w" sizes="(max-width: 640px) calc(100vw - 32px), 600px"><img src="/assets/img/gameplay/mhwi/38.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="auto"></picture></p>
+
+
+
+
+
+<div class="git-log-window"><pre class="post-log post-content controls__inner git-log"><output>~: git log
+2024-04-04 - jskyzero - 🚚 update structure
+2024-01-24 - jskyzero - 📝 update title
+2024-01-02 - jskyzero - 📝 test change strcuture
+2023-05-27 - jskyzero - 🚚 re:re:change file folder
+2023-02-19 - jskyzero - 📝 update title
+2022-10-07 - jskyzero - update pro tag
+2022-06-17 - jskyzero - 🚚 update index
+2022-02-11 - jskyzero - ✨ merge feature
+2021-11-20 - jskyzero - ✨ 🚚 add 《MHWI》内容设计分析
+
+<em>（本文编写于2021年11月，最后修改于2024年4月，共修改9次。）</em>
+
+<img alt="Creative Commons License" src="/assets/img/CC.png">
+
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 License</a>.
+</output></pre></div>
+
+
+
+<div class="comment-guide git-log">
+  <p class="comment-guide__title">~: 你的看法很重要！</p>
+  <p class="comment-guide__text">读完这篇文章，你有什么新的想法、疑问，或者不同观点吗？</p>
+  <p class="comment-guide__text">欢迎在下方评论区分享你的故事、经验或建议。</p>
+  <p class="comment-guide__text">不管是几句话，还是长篇分析，都能让更多人受益！</p>
+  <p class="comment-guide__signature">😊我会认真阅读每一条留言。</p>
+</div>
+
+
+<div id="disqus_thread">
+</div>
+<script>
+
+var disqus_config = function () {
+this.page.url = 'https://design.jskyzero.com/2021/11/20/mhwi/';
+this.page.identifier = 'https://design.jskyzero.com/2021/11/20/mhwi/';
+};
+
+window.addEventListener('load', function () {
+var d = document, s = d.createElement('script');
+s.src = 'https://designer-notes.disqus.com/embed.js';
+s.async = true;
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+});
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+          </main>
+<footer class="site-footer">
+  <p class="site-footer__message">Enjoy :)</p>
+  <div class="site-footer__badges">
+    <img src="https://img.shields.io/github/last-commit/jskyzero/design.jskyzero.com" alt="Last commit">
+    <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jskyzero/2b7d19a42054b8eff6e4b9b228a80079/raw/clarity-stats.json" alt="Clarity sessions">
+    
+    <img src="https://img.shields.io/badge/made with-♥-red" alt="Made with heart">
+  </div>
+  <p class="site-footer__copyright">© 2017-2026 设计者笔记. All rights reserved.</p>
+</footer>
+
+</div>
+      </div><aside class="outline-sidebar toc-sidebar" id="toc-sidebar" aria-hidden="true">
+          <nav class="toc-nav" aria-label="本文目录">
+            <!-- 目录由 _theme/_plugins/section_processor.rb 在构建期填充 -->
+          </nav>
+        </aside></div>
+    <script src="/assets/js/search.js" defer=""></script>
+    <script src="/assets/js/sidebar.js" defer=""></script>
+    <script src="/assets/js/toc-sidebar.js" defer=""></script>
+    <script src="/assets/js/post-format.js" defer=""></script>
+    <script src="/assets/js/header.js" defer=""></script>
+  
+
+</body></html>
