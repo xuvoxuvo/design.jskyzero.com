@@ -3,10 +3,10 @@
 <!-- [![Jekyll](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml/badge.svg?branch=jekyll)](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml) -->
 <!-- ![GitHub last commit](https://img.shields.io/github/last-commit/jskyzero/design.jskyzero.com) -->
 <!-- ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/jskyzero/design.jskyzero.com/jekyll) -->
-![clarity sessions](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jskyzero/2b7d19a42054b8eff6e4b9b228a80079/raw/clarity-stats.json)
+<!-- ![clarity sessions](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jskyzero/2b7d19a42054b8eff6e4b9b228a80079/raw/clarity-stats.json) -->
 
 
-jskyzero's notes about game designer.
+<!-- jskyzero's notes about game designer. -->
 
 <img alt="design jskyzero com_(iPad Mini)" src="https://github.com/user-attachments/assets/63868fa0-8475-42b7-a4c0-7ecb85009683" />
 
