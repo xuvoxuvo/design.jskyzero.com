@@ -59,8 +59,10 @@ jobs:
           publish_dir: ./_site
           publish_branch: gh-pages
 
+      # 仅当在原始仓库 jskyzero/design.jskyzero.com 中 push jekyll 分支时才同步到服务器；
+      # 复制到其他仓库/用户名（如 fork）时，服务器凭据 secrets 不存在，跳过该步骤以免误触。
       - name: 同步至远程服务器 (SSH)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/jekyll'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/jekyll' && github.repository == 'jskyzero/design.jskyzero.com'
         uses: appleboy/ssh-action@v1
         with:
           host: "${{ secrets.HOST }}"
