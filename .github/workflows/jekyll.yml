@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ jekyll ]
 
+# 授予 GITHUB_TOKEN 写权限，供 gh-pages 部署步骤推送。
+# 新仓库默认 GITHUB_TOKEN 为只读，否则 gh-pages push 会 403。
+permissions:
+  contents: write
+
 jobs:
   build:
     name: 构建并发布
