@@ -11,6 +11,8 @@ github_username: jskyzero
 
 footer: 'Enjoy :)'
 git_log: true
+hits:
+  enabled: false # 设置为 true 才加载访问量统计及徽标
 
 nav:
   header_pages:
