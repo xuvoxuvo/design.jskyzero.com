@@ -1,7 +1,8 @@
 # Designer-Notes
-[![Jekyll](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml/badge.svg?branch=jekyll)](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml)
-![GitHub last commit](https://img.shields.io/github/last-commit/jskyzero/design.jskyzero.com)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/jskyzero/design.jskyzero.com/jekyll)
+<!-- 以下徽章依赖已被封禁的 jskyzero 仓库地址，无法自适应，暂时注释掉 -->
+<!-- [![Jekyll](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml/badge.svg?branch=jekyll)](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml) -->
+<!-- ![GitHub last commit](https://img.shields.io/github/last-commit/jskyzero/design.jskyzero.com) -->
+<!-- ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/jskyzero/design.jskyzero.com/jekyll) -->
 ![clarity sessions](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jskyzero/2b7d19a42054b8eff6e4b9b228a80079/raw/clarity-stats.json)
 
 
