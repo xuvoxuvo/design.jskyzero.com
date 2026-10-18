@@ -11,23 +11,38 @@ def verify(condition, message)
   raise message unless condition
 end
 
-source = File.expand_path('..', __dir__)
-article = '_posts/2.游戏AI/2021-07-19-GameAI.md'
-logger = Jekyll::Revision::GitLogger.new(source, article, { 'max_count' => 2 })
-expected = Jekyll::Revision::Executor.sh('git', '-C', source, 'log', '--follow', '--format=%ci', '--', article).lines.last.strip
-verify(logger.summary['created_at'] == expected, 'Creation date must use full history')
-history = Jekyll::Revision::Executor.sh('git', '-C', source, 'log', '--follow', '--format=%ci', '--', article).lines
-verify(logger.summary['count'] == history.length, 'Count must include renamed paths')
-verify(logger.revisions.last(3).map { |rev| rev['date'] } == history.last(3).map(&:strip), 'Keep the oldest three entries after omission')
-verify(logger.revisions.count { |rev| rev['omitted'] } == 1, 'Long history must have one omission marker')
-default_logger = Jekyll::Revision::GitLogger.new(source, article)
-verify(default_logger.revisions.length == 21, 'Default long history displays 17 recent, omission, 3 oldest')
-verify(default_logger.revisions[17]['omitted'], 'Omission follows the recent 17 entries')
-verify(logger.summary['created_at'] != logger.revisions[1]['date'], 'Fixture must exceed display limit')
-disabled = Object.new
-def disabled.config; { 'git_log' => false }; end
-def disabled.posts; raise 'Disabled generator must not read posts'; end
-Jekyll::Revision::Generator.new.generate(disabled)
+# 用受控的临时 git 夹具构造长历史，避免依赖真实仓库（清空历史后其只剩单提交）。
+Dir.mktmpdir('revision-fixture-') do |dir|
+  article = '_posts/2.游戏AI/2021-07-19-GameAI.md'
+  path = File.join(dir, article)
+  FileUtils.mkdir_p(File.dirname(path))
+  system('git', '-C', dir, 'init', '-q')
+  system('git', '-C', dir, 'config', 'user.name', 'fixture')
+  system('git', '-C', dir, 'config', 'user.email', 'fixture@example.com')
+  25.times do |i|
+    stamp = (Time.utc(2020, 1, 1, 12) + i * 3600).strftime('%Y-%m-%dT%H:%M:%S +0000')
+    File.write(path, "# GameAI #{i}\n")
+    system({ 'GIT_AUTHOR_DATE' => stamp, 'GIT_COMMITTER_DATE' => stamp }, 'git', '-C', dir, 'add', '-A')
+    system({ 'GIT_AUTHOR_DATE' => stamp, 'GIT_COMMITTER_DATE' => stamp }, 'git', '-C', dir, 'commit', '-q', '-m', "commit #{i}")
+  end
+
+  logger = Jekyll::Revision::GitLogger.new(dir, article, { 'max_count' => 2 })
+  expected = Jekyll::Revision::Executor.sh('git', '-C', dir, 'log', '--follow', '--format=%ci', '--', article).lines.last.strip
+  verify(logger.summary['created_at'] == expected, 'Creation date must use full history')
+  history = Jekyll::Revision::Executor.sh('git', '-C', dir, 'log', '--follow', '--format=%ci', '--', article).lines
+  verify(logger.summary['count'] == history.length, 'Count must include renamed paths')
+  verify(logger.revisions.last(3).map { |rev| rev['date'] } == history.last(3).map(&:strip), 'Keep the oldest three entries after omission')
+  verify(logger.revisions.count { |rev| rev['omitted'] } == 1, 'Long history must have one omission marker')
+  default_logger = Jekyll::Revision::GitLogger.new(dir, article)
+  verify(default_logger.revisions.length == 21, 'Default long history displays 17 recent, omission, 3 oldest')
+  verify(default_logger.revisions[17]['omitted'], 'Omission follows the recent 17 entries')
+  verify(logger.summary['created_at'] != logger.revisions[1]['date'], 'Fixture must exceed display limit')
+
+  disabled = Object.new
+  def disabled.config; { 'git_log' => false }; end
+  def disabled.posts; raise 'Disabled generator must not read posts'; end
+  Jekyll::Revision::Generator.new.generate(disabled)
+end
 
 Dir.mktmpdir('responsive-plugin-') do |dir|
   site = Struct.new(:source, :baseurl).new(dir, '/notes')
