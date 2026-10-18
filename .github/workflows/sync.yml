@@ -14,6 +14,8 @@ concurrency:
 jobs:
   update:
     name: 更新 Gist 统计
+    # 仅在原始仓库 jskyzero/design.jskyzero.com 运行；fork/迁移到其他仓库后跳过。
+    if: github.repository == 'jskyzero/design.jskyzero.com'
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
