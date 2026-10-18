@@ -1,0 +1,110 @@
+# Designer-Notes
+<!-- 以下徽章依赖已被封禁的 jskyzero 仓库地址，无法自适应，暂时注释掉 -->
+<!-- [![Jekyll](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml/badge.svg?branch=jekyll)](https://github.com/jskyzero/design.jskyzero.com/actions/workflows/jekyll.yml) -->
+<!-- ![GitHub last commit](https://img.shields.io/github/last-commit/jskyzero/design.jskyzero.com) -->
+<!-- ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/jskyzero/design.jskyzero.com/jekyll) -->
+<!-- ![clarity sessions](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jskyzero/2b7d19a42054b8eff6e4b9b228a80079/raw/clarity-stats.json) -->
+
+
+<!-- jskyzero's notes about game designer. -->
+
+<img alt="design jskyzero com_(iPad Mini)" src="https://github.com/user-attachments/assets/63868fa0-8475-42b7-a4c0-7ecb85009683" />
+
+## Local Development
+
+Install Ruby dependencies:
+
+```bash
+bundle install
+```
+
+Install Node dependencies for responsive image generation:
+
+```bash
+npm ci
+```
+
+Generate responsive WebP images after adding or changing files under `assets/img`:
+
+```bash
+npm run images
+```
+
+Preview the site locally:
+
+```bash
+bundle exec jekyll serve
+```
+
+Daily text/style edits usually only need `bundle exec jekyll serve`. Run `npm run images` again when new images are added, existing images are replaced, or image references change.
+
+Production builds use `bundle exec jekyll build --config _config.yml,_config.production.yml`.
+The production overlay excludes unused local fonts and design source files (PPTX,
+Drawio, XMind, PSD) from the published site only; they remain available in the
+repository and ordinary local builds. Keep the overlay's base exclusions in sync
+with `_config.yml`, because Jekyll replaces arrays when merging configuration.
+
+Run Ruby plugin regression checks with `bundle exec ruby scripts/verify-plugins.rb`.
+Hits statistics are disabled by default. Set `hits.enabled: true` in `_config.yml`
+to enable the badge. Failed or timed-out requests hide it; no cached count or
+unavailable badge is shown. When disabled, neither the badge nor its script is rendered.
+For WSL dependencies installed locally, prefix Bundler commands with
+`BUNDLE_PATH=vendor/bundle`.
+
+Responsive image filenames include a hash of source bytes and the conversion
+pipeline (script, locked dependencies, Sharp versions and parameters). Unchanged
+images are reused regardless of checkout timestamps; obsolete generated WebP
+files are removed after generating the new manifest.
+
+
+<!--
+
+## How to use
+
+You can view it via [website](https://design.jskyzero.com/), or you can download the source file and run in your local machine.
+
+
+### Daily Use
+
++ serve: `bundle exec jekyll serve`
++ change file ext name: `for x in *.jpeg; do mv "$x" "${x%.jpeg}.jpg"; done`
++ mermaid: `./node_modules/.bin/mmdc -h`, `mmdc -i input.mmd -o output.svg`
+
++ CompatibilityError:
+
+```ruby
+# Encoding::CompatibilityError: incompatible encoding regexp match (UTF-8 regexp with ASCII-8BIT string)
+
+# /opt/homebrew/lib/ruby/gems/3.1.0/gems/listen-3.7.1/lib/listen/adapter/darwin.rb:69:in `_process_event'
+
+rel_path = path.relative_path_from(dir).to_s.force_encoding('utf-8')
+
+```
+
+ ```ruby
+# Encoding::CompatibilityError: incompatible encoding regexp match (UTF-8 regexp with ASCII-8BIT string)
+
+# /opt/homebrew/lib/ruby/gems/3.1.0/gems/listen-3.7.1/lib/listen/silencer.rb
+
+def _ignore?(path)
+      if path.encoding.to_s == 'ASCII-8BIT'
+        path = path.force_encoding(Encoding::ISO_8859_1).encode!('utf-8')
+      end
+      ignore_patterns.any? { |pattern| path =~ pattern }
+    end
+```
++ draw a picture: `xmind`, `draw.io`, `marmaid`
+
+
+## Change Log
+
++ 2023/02/17: change theme to light
+
+ -->
+
+## License
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+
+The Theme forks from [jekyll-theme-console](https://github.com/b2a3e8/jekyll-theme-console) under [MIT License](https://opensource.org/licenses/MIT).

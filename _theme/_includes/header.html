@@ -1,0 +1,25 @@
+{% comment %}
+  header.html —— 站点主导航。
+  
+  从 site.nav.header_pages 读取页面列表生成顶部导航链接。
+  移动端侧栏切换按钮也放在此处，窄屏时通过 flex 三栏布局排布。
+{% endcomment %}
+{%- assign page_paths = site.nav.header_pages | default: site.header_pages | default: default_paths -%}
+<header class="site-header">
+  <div class="site-menu menu">
+    <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ '/assets/img/logo.2.png' | relative_url }}" alt="{{ site.title }}" width="128" height="128" fetchpriority="high" decoding="async"></a>
+    <button class="sidebar-toggle" type="button" aria-controls="sidebar" aria-expanded="false">☰</button>
+    <ul class="site-menu__items">
+      {%- for path in page_paths -%}
+        {%- assign my_page = site.pages | where: "path", path | first -%}
+        {%- if my_page.title -%}
+        <li class="site-menu__item"><a href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a></li>
+        {%- endif -%}
+        {%- assign my_page = site.posts | where: "path", path | first -%}
+        {%- if my_page.title -%}
+        <li class="site-menu__item"><a href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</header>

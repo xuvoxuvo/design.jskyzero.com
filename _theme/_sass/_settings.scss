@@ -1,0 +1,23 @@
+/*
+ * 主题设置——所有 Sass 模块共享的变量。
+ *
+ * 本文件仅持有字体栈、断点、栏宽和内容列限制。
+ * 组件样式应通过 @use "settings" as * 读取这些值。
+ *
+ * Sarasa 处理 CJK 文本；JetBrains Mono 提供轻量级拉丁/ASCII
+ * 及代码字符（ZeoSeven 的 Sarasa 分割 CSS 不含此部分）。
+ */
+
+// 字体
+$base-font-family: "JetBrains Mono", "Sarasa Mono SC" !default;
+$code-font-family: "JetBrains Mono" !default;
+$base-font-size: 12.5px !default;
+$mobile-font-size: 12px !default;
+$base-line-height: 1.5 !default;
+
+// 布局尺寸
+$container-width: 90% !default;
+$container-max-width: 600px !default;
+$sidebar-width: 280px !default;
+$toc-width: 440px !default;
+$layout-wide-breakpoint: $container-max-width + $sidebar-width + $toc-width !default;

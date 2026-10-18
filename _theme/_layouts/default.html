@@ -1,0 +1,43 @@
+---
+layout: null
+---
+{% comment %}
+  default.html —— 站点骨架。
+  
+  三区布局：左侧导航栏 / 中间内容区 / 右侧大纲栏。
+  语义化类名叠加使用，保证旧选择器和脚本兼容。
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html -%}
+
+  <body data-env="{{ jekyll.environment }}">
+    <div class="site-shell page-wrapper{% if page.layout == 'home' %} no-sidebar{% endif %}">
+      {%- include sidebar.html -%}
+      <div class="sidebar-overlay" data-sidebar-close></div>
+      <div class="site-content content-area">
+        <div class="container">
+          {%- include header.html -%}
+          <main class="site-main">
+            {{ content }}
+          </main>
+          {%- include footer.html -%}
+        </div>
+      </div>
+      {%- if page.layout == 'post' or page.layout == 'page' -%}
+        <aside class="outline-sidebar toc-sidebar" id="toc-sidebar" aria-hidden="true">
+          <nav class="toc-nav" aria-label="本文目录">
+            <!-- 目录由 _theme/_plugins/section_processor.rb 在构建期填充 -->
+          </nav>
+        </aside>
+      {%- else -%}
+        <aside class="outline-sidebar toc-sidebar" aria-hidden="true"></aside>
+      {%- endif -%}
+    </div>
+    <script src="/assets/js/search.js" defer></script>
+    <script src="/assets/js/sidebar.js" defer></script>
+    <script src="/assets/js/toc-sidebar.js" defer></script>
+    <script src="/assets/js/post-format.js" defer></script>
+    <script src="/assets/js/header.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+@use "../settings" as *;
+
+// ============================================================
+// 文章内容：排版、引用、表格、终端风格 git-log 区块
+// ============================================================
+
+// ------------------------------------------------------------------
+// 段落与文本基础
+// ------------------------------------------------------------------
+
+// 段落自动换行、保留空白
+p {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  margin: 8px 0;
+}
+
+// 段落内链接斜体
+p > a {
+  font-style: italic;
+}
+
+// 加粗文字加下划线
+strong {
+  text-decoration: underline;
+}
+
+// ------------------------------------------------------------------
+// 页脚
+// ------------------------------------------------------------------
+
+footer {
+  color: var(--text-color);
+  border-top: var(--border);
+  margin: 20px auto 20px;
+  padding-top: 10px;
+  text-align: right;
+}
+
+// ------------------------------------------------------------------
+// 页面头部间距
+// ------------------------------------------------------------------
+
+header {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+header p {
+  text-align: left;
+  margin: 0;
+}
+
+// ------------------------------------------------------------------
+// 图片与 <picture> 响应式图片
+// ------------------------------------------------------------------
+
+p > img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
+p > picture {
+  display: block;
+  margin: 0 auto;
+}
+
+p > picture > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+img {
+  max-width: 100%;
+}
+
+// ------------------------------------------------------------------
+// 列表
+// ------------------------------------------------------------------
+
+li > p {
+  display: inline; // 列表内段落不产生额外块
+}
+
+ul {
+  padding-inline-start: 8px !important;
+  margin: 8px 0;
+}
+
+li > ul {
+  margin: 0;
+}
+
+// ------------------------------------------------------------------
+// 引用块：左上/右下括号标记
+// ------------------------------------------------------------------
+
+blockquote {
+  position: relative;
+  padding: 0px 18px;
+  font-style: italic;
+  background: none;
+  text-align: center;
+}
+
+blockquote::before,
+blockquote::after {
+  position: absolute;
+  color: var(--text-color);
+  background: transparent;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+}
+
+blockquote::before {
+  content: "『";
+  top: 0;
+  left: 0;
+}
+
+blockquote::after {
+  content: "』";
+  right: 0;
+  bottom: 0;
+}
+
+// ------------------------------------------------------------------
+// 表格
+// ------------------------------------------------------------------
+
+table {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+th {
+  border-bottom: var(--border);
+}
+
+// 首列强制不换行
+.nowrap-col-1 td:nth-child(1),
+.nowrap-col-1 th:nth-child(1) {
+  white-space: nowrap;
+}
+
+// ------------------------------------------------------------------
+// 首页索引
+// ------------------------------------------------------------------
+
+#index {
+  ul {
+    margin: 0;
+  }
+}
+
+// ------------------------------------------------------------------
+// PRO 区块（文章元数据 badge）
+// ------------------------------------------------------------------
+
+#pro {
+  display: flex;
+  margin-top: 15px;
+
+  img {
+    width: fit-content;
+    margin-right: 8px;
+  }
+}
+
+// ============================================================
+// git-log 终端风格区块
+// ============================================================
+
+// .git-log-window —— 外层窗口装饰（macOS 按钮 + 阴影 + 扫描线）
+.git-log-window {
+  position: relative;
+  margin: 1rem 0;
+  padding: 32px 16px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.82);
+  border-radius: 12px;
+  background: black;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 14px 34px rgba(0, 0, 0, 0.16);
+
+  // macOS 三色窗口按钮
+  &::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff5f57;
+    box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #28c840;
+  }
+
+  // CRT 扫描线叠加层
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='2' viewBox='0 0 1 2'%3E%3Crect x='0' y='0' width='1' height='1' fill='rgba(0,0,0,0.15)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 1px 2px;
+    pointer-events: none;
+  }
+}
+
+// .git-log —— 内部内容（终端风格等宽字体 + 绿色辉光）
+.git-log {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  background-color: black;
+  border-radius: 0;
+  margin: 0;
+  color: white;
+  font: 0.8rem Inconsolata, monospace;
+  line-height: 1.35;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: pre;
+  text-shadow: 0 0 5px #C8C8C8;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+  }
+
+  a {
+    color: white;
+  }
+
+  // 选中时清除辉光，便于阅读
+  ::selection {
+    background: #0080FF;
+    text-shadow: none;
+  }
+
+  pre {
+    margin: 0;
+  }
+
+  img {
+    border-width: 0;
+  }
+}
+
+// 评论区引导卡片的终端风格变体
+.comment-guide.git-log {
+  margin-bottom: 20px;
+  padding: 1rem 1rem 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.82);
+  border-radius: 1rem;
+  font-family: $code-font-family;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+// ------------------------------------------------------------------
+// 评论区引导文案
+// ------------------------------------------------------------------
+
+.comment-guide__title {
+  margin-bottom: 10px;
+  color: #8fbc8f;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.comment-guide__text {
+  margin-bottom: 10px;
+  color: #f1f1f1;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.comment-guide__signature {
+  margin-bottom: 0;
+  color: #f1f1f1;
+  font-size: 1em;
+  font-style: italic;
+  line-height: 1.6;
+  text-align: right;
+}

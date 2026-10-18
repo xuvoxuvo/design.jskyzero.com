@@ -1,0 +1,141 @@
+@use "../settings" as *;
+
+// ============================================================
+// 导航栏：选中高亮、列表标记、顶部菜单、站点徽标
+// ============================================================
+
+// 文本选中颜色
+::selection {
+  background: var(--selection-background);
+  color: var(--selection-text);
+}
+
+// 非菜单列表用 "-" 前缀
+:not(.menu) > ul {
+  list-style: none;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+:not(.menu) > ul > li:before {
+  content: "-";
+  margin-right: 9px;
+}
+
+// 顶部菜单容器
+.menu {
+  border-top: var(--border);
+  border-bottom: var(--border);
+  margin-bottom: 25px;
+}
+
+// 站点徽标
+.site-logo {
+  float: left;
+  margin: 8px 0;
+  text-decoration: none;
+}
+
+.site-logo img {
+  display: block;
+  height: 24px;
+  width: auto;
+}
+
+.site-logo:hover {
+  color: inherit;
+  background: transparent;
+}
+
+// 侧栏切换按钮（桌面端隐藏）
+.sidebar-toggle {
+  display: none;
+  float: left;
+  margin: 6px 8px;
+  border: none;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: $base-font-family;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+  color: var(--background-color);
+  background-color: var(--base-color);
+}
+
+// 菜单项列表
+.menu ul {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding-left: 0;
+  list-style-type: none;
+  text-align: right;
+}
+
+.menu ul li {
+  display: inline;
+  margin-left: 10px;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.menu ul li a:hover {
+  text-decoration: none;
+  color: var(--background-color);
+  background-color: var(--base-color);
+}
+
+// ============================================================
+// 移动端导航（窄屏）
+// ============================================================
+
+@media (max-width: ($layout-wide-breakpoint - 1px)) {
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 150;
+    background: var(--background-color);
+    padding: 8px 10px 3px;
+    transition: transform 1s;
+  }
+
+  // 滚动隐藏头部
+  header.header-hidden {
+    transform: translateY(-110%);
+  }
+
+  // 菜单栏改为 flex 三栏：toggle / logo / menu
+  .menu {
+    display: flex;
+    align-items: center;
+    margin-bottom: 9px;
+  }
+
+  // 徽标居中
+  .site-logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: static;
+    float: none;
+  }
+
+  // 侧栏按钮左对齐
+  .sidebar-toggle {
+    flex: 0 0 auto;
+    display: inline-block;
+    order: -1;
+  }
+
+  // 菜单项右对齐
+  .menu ul {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+}

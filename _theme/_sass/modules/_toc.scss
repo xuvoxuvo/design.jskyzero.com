@@ -1,0 +1,482 @@
+@use "../settings" as *;
+
+// ============================================================
+// 目录（TOC）：右侧大纲栏 + 内联思维导图视图
+// ============================================================
+
+// 右侧 TOC 侧栏
+.toc-sidebar {
+  padding: clamp(28px, 8vh, 72px) 24px clamp(28px, 8vh, 72px) 12px;
+  font-size: $base-font-size;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  background: var(--background-color);
+  font-style: italic;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  transition: opacity 1s ease;
+
+  // 可见状态
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // 长大纲滚动条保持极简
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.28) transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.28);
+    border-radius: 4px;
+  }
+}
+
+// TOC 导航容器
+.toc-nav {
+  width: 100%;
+
+  > ul {
+    counter-reset: toc2;
+  }
+
+  > ul > li {
+    counter-reset: toc2;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: clamp(8px, 1.8vh, 18px);
+    list-style: none;
+    padding-left: 0;
+    margin: 4px 0;
+
+    ul {
+      display: block;
+    }
+
+    ul ul {
+      padding-left: 28px;
+    }
+
+    li {
+      margin: 7px 0 3px;
+      line-height: 1.4;
+
+      &:before {
+        content: none !important;
+      }
+
+      > a:before {
+        content: none;
+      }
+
+      a {
+        text-decoration: underline;
+        color: var(--text-color);
+
+        &:hover {
+          color: var(--background-color);
+          background-color: var(--base-color);
+        }
+      }
+    }
+  }
+
+  // TOC 标题计数器（按嵌套层级编号）：
+  // 根级 h1 不编号；嵌套 h2/h3/h4 编号为 1./1.1./1.1.1.
+  > ul > li > ul > li {
+    counter-increment: toc2;
+    counter-reset: toc3;
+
+    > a:before {
+      content: counter(toc2) ".";
+    }
+  }
+
+  > ul > li > ul > li > ul > li {
+    counter-increment: toc3;
+    counter-reset: toc4;
+
+    > a:before {
+      content: counter(toc2) "." counter(toc3) ".";
+    }
+  }
+
+  > ul > li > ul > li > ul > li > ul > li {
+    counter-increment: toc4;
+
+    > a:before {
+      content: counter(toc2) "." counter(toc3) "." counter(toc4) ".";
+    }
+  }
+}
+
+// TOC 一级链接加粗
+.toc-sidebar .toc-nav > ul > li > a {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+// TOC 顶栏列表最小高度
+.toc-sidebar .toc-nav > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(14px, 3vh, 28px);
+  min-height: min(72vh, calc(100vh - 120px));
+  margin: 0;
+}
+
+// 大纲过长时切换为紧凑模式：顶部对齐、更小间距。
+// 滚动条隐藏，活跃项由 layout.js 保持在可见区域内。
+.toc-sidebar.toc-sidebar--overflowing {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: clamp(18px, 4vh, 36px);
+  padding-bottom: clamp(18px, 4vh, 36px);
+  align-items: flex-start;
+}
+
+.toc-sidebar.toc-sidebar--overflowing .toc-nav > ul {
+  justify-content: flex-start;
+  gap: clamp(8px, 1.4vh, 16px);
+  min-height: 0;
+}
+
+.toc-sidebar.toc-sidebar--overflowing .toc-nav ul {
+  gap: clamp(4px, 0.9vh, 10px);
+}
+
+.toc-sidebar.toc-sidebar--overflowing .toc-nav ul li {
+  margin: 4px 0 2px;
+  line-height: 1.25;
+}
+
+// TOC 子列表不需要缩进
+.toc-sidebar .toc-nav ul ul {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// ============================================================
+// 内联 TOC（思维导图风格）
+// ============================================================
+
+.toc-inline {
+  $mindmap-branch-width: 8px;
+
+  margin: 12px 0 20px;
+  padding: 8px 10px 10px 1px;
+  font-style: italic;
+  // 点阵背景（SVG 静态方案）
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='1' fill='rgba(0,0,0,0.22)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 8px 8px;
+  background-position: 0 0;
+  background-attachment: local;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.25) transparent;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.25);
+    border-radius: 4px;
+  }
+
+  &:hover {
+    background-position: 64px 0;
+    transition: background-position 12s linear;
+  }
+
+  .toc-nav {
+    width: max-content;
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .toc-nav > ul,
+  .toc-nav > ul > li {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .toc-nav li {
+    position: relative;
+    display: grid;
+    grid-template-columns: max-content auto;
+    align-items: center;
+    column-gap: $mindmap-branch-width;
+    margin: 0;
+    line-height: 1.18;
+  }
+
+  .toc-nav ul ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin: 0;
+    padding-left: 0;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .toc-nav > ul > li > ul {
+    margin-top: 6px;
+    gap: 20px;
+  }
+
+  .toc-nav li > a {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    grid-column: 1;
+    grid-row: 1;
+    width: max-content;
+    max-width: none;
+    min-width: max-content;
+    padding: 1px 2px 1px 1px;
+    text-decoration: none;
+    white-space: nowrap;
+    background: #fff;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    box-shadow: 0 0 0 2px #fff;
+  }
+
+  .toc-nav li:has(> ul) {
+    padding: 0;
+    background: transparent;
+  }
+
+  .toc-nav li:not(:has(> ul)) {
+    margin: 0;
+    column-gap: 0;
+  }
+
+  .toc-nav ul:not(:has(> li > ul)) {
+    gap: 0;
+  }
+
+  // 根节点横向排列在各自分支上方，避免竖排长标题过高。
+  .toc-nav > ul > li > a {
+    display: none;
+    justify-self: start;
+    width: max-content;
+    min-width: max-content;
+    padding: 1px 2px 1px 1px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1.05;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .toc-nav > ul > li {
+    overflow: visible;
+  }
+
+  .toc-nav > ul > li > ul {
+    margin-top: 0;
+  }
+
+  .toc-nav > ul > li > ul > li {
+    column-gap: 10px;
+  }
+
+  .toc-nav > ul > li > ul > li > ul {
+    display: grid;
+    grid-template-columns: max-content auto;
+    column-gap: 10px;
+    gap: 8px;
+  }
+
+  .toc-nav > ul > li > ul > li > ul > li {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+  }
+
+  .toc-nav > ul > li > ul > li > ul > li > ul {
+    align-items: flex-start;
+    grid-column: 2;
+    grid-row: 1;
+    gap: 0;
+  }
+
+  // 低深度 TOC（h4 不存在）使用更紧凑的垂直根布局。
+  // 此处使用结构性选择器，因为内联 TOC 由 kramdown 生成，
+  // 部分场景下没有可靠的层级 class。
+  &:not(:has(.toc-nav > ul > li > ul > li > ul > li > ul > li)) {
+    padding-left: 6px;
+
+    .toc-nav > ul,
+    .toc-nav > ul > li {
+      width: 100%;
+    }
+
+    .toc-nav > ul {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    // 有多个 h1 根节点时，增加根分支之间的间距。
+    .toc-nav > ul:has(> li + li) {
+      gap: clamp(16px, 3vh, 32px);
+    }
+
+    .toc-nav > ul > li {
+      display: grid;
+      grid-template-columns: minmax(28px, max-content) minmax(0, 1fr);
+      column-gap: 0;
+    }
+
+    .toc-nav > ul > li > ul {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    // h1 根标题竖排显示
+    .toc-nav > ul > li > a {
+      display: inline-block;
+      justify-self: center;
+      align-self: center;
+      max-height: 14em;
+      min-width: 0;
+      width: auto;
+      padding: 1px 0;
+      line-height: 1.05;
+      text-align: center;
+      white-space: normal;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      overflow-wrap: anywhere;
+    }
+
+    .toc-nav > ul > li > ul > li:not(:has(> ul)) {
+      margin: 0;
+    }
+
+    .toc-nav > ul > li > ul > li > ul:not(:has(> li > ul)) {
+      gap: 0;
+    }
+
+    .toc-nav > ul > li > ul:not(:has(> li > ul)) {
+      gap: 0;
+      align-self: stretch;
+      justify-content: space-evenly;
+      min-height: 100%;
+    }
+
+    // h1 + h2 + h3（无 h4）：分支间距更宽松。
+    &:has(.toc-nav > ul > li > ul > li > ul > li) {
+      .toc-nav > ul > li {
+        grid-template-columns: minmax(36px, max-content) minmax(0, 1fr);
+        column-gap: 10px;
+      }
+
+      .toc-nav > ul > li > ul {
+        gap: 34px;
+      }
+
+      .toc-nav > ul > li > ul > li,
+      .toc-nav > ul > li > ul > li > ul {
+        column-gap: 22px;
+      }
+    }
+
+    // 仅 h1 + h2：保持较紧凑的垂直间距。
+    &:not(:has(.toc-nav > ul > li > ul > li > ul > li)) {
+      .toc-nav > ul > li {
+        grid-template-columns: minmax(42px, max-content) minmax(0, 1fr);
+        column-gap: 10px;
+      }
+
+      .toc-nav > ul > li > ul {
+        gap: clamp(5px, 1.1vh, 11px);
+      }
+    }
+  }
+
+  .toc-nav a,
+  .toc-nav a.active,
+  .toc-nav a:hover {
+    color: var(--text-color);
+    background: #fff;
+  }
+
+  .toc-nav a:hover {
+    text-decoration: underline;
+  }
+}
+
+// TOC 滚动高亮
+.toc-nav a.active {
+  position: relative;
+  font-weight: bold;
+  color: var(--text-color);
+  background-color: rgba(128, 128, 128, 0.18);
+}
+
+.toc-sidebar .toc-nav a.active:before {
+  content: none;
+}
+
+.toc-sidebar .toc-nav a.active:after {
+  content: "◀";
+  position: absolute;
+  left: calc(100% + 5px);
+  font-weight: bold;
+  font-style: normal;
+}
+
+.toc-sidebar .toc-nav > ul > li > ul > li > a.active:before {
+  content: counter(toc2) ".";
+  margin-right: 0;
+}
+
+.toc-sidebar .toc-nav > ul > li > ul > li > ul > li > a.active:before {
+  content: counter(toc2) "." counter(toc3) ".";
+  margin-right: 0;
+}
+
+.toc-sidebar .toc-nav > ul > li > ul > li > ul > li > ul > li > a.active:before {
+  content: counter(toc2) "." counter(toc3) "." counter(toc4) ".";
+  margin-right: 0;
+}

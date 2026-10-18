@@ -1,0 +1,25 @@
+{% comment %}
+  lists.html —— 可复用的文章列表组件。
+  
+  用法：
+    {% include lists.html posts=page.some_posts text="标题" %}
+  
+  参数：
+    * posts  — 文章路径数组（按显示顺序）
+    * text   — 列表标题文案
+{% endcomment %}
+<ul class="post-list">
+    <p class="post-list__title">{{ include.text }}</p>
+
+    {%- for post_path in include.posts -%}
+    {%- assign post = site.posts | where: "path", post_path | first -%}
+    {%- if post -%}
+    <li>
+      {%- assign date_format = post.date | date:"%Y-%m" -%}
+      [{{ date_format }}] 
+      <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      {%- if post.pro -%}⭐️{%- endif -%}
+    </li>
+    {%- endif -%}
+    {%- endfor -%}
+</ul>

@@ -1,0 +1,38 @@
+{% comment %}
+  sidebar.html —— 左侧文章导航栏。
+  
+  分类结构与首页 home.html 共享 site.home.sections 配置，
+  保证排序一致。包含搜索框和文章分类列表。
+{% endcomment %}
+<aside class="nav-sidebar sidebar" id="sidebar">
+  <button class="sidebar-close" type="button" aria-controls="sidebar" aria-expanded="true">×</button>
+
+  <!-- 搜索框 -->
+  <div class="sidebar-search">
+    <input type="text" id="search-input" aria-label="search" placeholder=" ">
+    <span class="sidebar-search__prompt" aria-hidden="true">search...</span>
+    <div id="search-results" class="search-results"></div>
+  </div>
+
+  <!-- 文章分类导航 -->
+  <nav class="sidebar-nav" aria-label="文章分类">
+    {% for item in site.home.sections %}
+      {%- if item.posts.size > 0 -%}
+        <section class="sidebar-group">
+          <div class="sidebar-group-title">{{ item.name }}</div>
+          <ul>
+            {%- for post_path in item.posts -%}
+              {%- assign post = site.posts | where: "path", post_path | first -%}
+              {%- if post -%}
+                <li{% if page.url == post.url %} class="current"{% endif %}>
+                  <a href="{{ post.url | relative_url }}"{% if page.url == post.url %} class="current" aria-current="page"{% endif %}>{{ post.title | escape }}</a>
+                  {%- if post.pro -%}<span class="pro-star">⭐️</span>{%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+</aside>

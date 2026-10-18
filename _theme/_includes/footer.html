@@ -1,0 +1,17 @@
+{% comment %}
+  footer.html —— 站点页脚。
+
+  将徽章排列在一行，形成紧凑的状态行末端风格。
+  包含 GitHub 最后提交、Clarity 统计、busuanzi 访问量统计和版权信息。
+{% endcomment %}
+<footer class="site-footer">
+  <p class="site-footer__message">{{ site.footer }}</p>
+  <div class="site-footer__badges">
+    {% if site.github_repo %}<img src="https://img.shields.io/github/last-commit/{{ site.github_repo }}" alt="Last commit">{% endif %}
+    {% if site.github_repo == 'jskyzero/design.jskyzero.com' %}<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/jskyzero/2b7d19a42054b8eff6e4b9b228a80079/raw/clarity-stats.json" alt="Clarity sessions">{% endif %}
+    {% if site.hits.enabled == true %}<img id="hits-badge" alt="hits" style="display:none">{% endif %}
+    <img src="https://img.shields.io/badge/made with-♥-red" alt="Made with heart">
+  </div>
+  <p class="site-footer__copyright">&copy; 2017-{{ site.time | date: '%Y' }} {{ site.title | escape }}. All rights reserved.</p>
+</footer>
+{% if site.hits.enabled == true %}<script src="{{ "/assets/js/hits.js" | relative_url }}" defer></script>{% endif %}

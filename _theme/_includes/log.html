@@ -1,0 +1,18 @@
+{% comment %}
+  log.html —— Git 修订记录与许可声明。
+  
+  通过 Jekyll 插件 log.rb 获取当前页面的 Git 提交历史，
+  以 CRT 终端风格展示。包含 CC BY-NC-SA 4.0 许可声明。
+  仅在 _config.yml 中 site.git_log 为 true 时渲染。
+{% endcomment %}
+{% if site.git_log %}
+<div class="git-log-window"><pre class="post-log post-content controls__inner git-log"><output>~: git log{% if page.revisions.size > 0 %}
+{% for rev in page.revisions %}{% if rev.omitted %}{{ rev.message }}{% else %}{{ rev.date | date: "%Y-%m-%d" }} - {{ rev.author }} - {{ rev.message }}{% endif %}
+{% endfor %}{% endif %}
+{% if page.revision_summary %}<em>（本文编写于{{ page.revision_summary.created_at | date: "%Y年%-m月" }}，最后修改于{{ page.revision_summary.updated_at | date: "%Y年%-m月" }}，共修改{{ page.revision_summary.count }}次。）</em>{% endif %}
+
+<img alt="Creative Commons License" src="/assets/img/CC.png" />
+
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 License</a>.
+</output></pre></div>
+{% endif %}

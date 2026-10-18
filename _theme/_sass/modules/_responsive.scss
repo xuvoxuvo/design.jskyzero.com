@@ -1,0 +1,99 @@
+@use "../settings" as *;
+
+// ============================================================
+// 窄屏响应式：收起侧栏，使用固定移动端导航抽屉
+// ============================================================
+
+@media (max-width: ($layout-wide-breakpoint - 1px)) {
+  // 页面恢复单栏
+  .page-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+
+  // 侧栏打开时禁止页面滚动
+  body.sidebar-open {
+    overflow: hidden;
+  }
+
+  // 侧栏从左侧滑入
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    right: 0;
+    width: auto;
+    height: 100vh;
+    height: 100dvh;
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    animation: none;
+    visibility: hidden;
+    pointer-events: none;
+    box-sizing: border-box;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: opacity 1s ease;
+
+    .page-wrapper.no-sidebar & {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &.open {
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    // 关闭按钮显示
+    .sidebar-close {
+      display: block;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 1;
+      padding: 0 4px;
+      border: none;
+      background: transparent;
+      color: var(--text-color);
+      cursor: pointer;
+      font-family: $base-font-family;
+      font-size: 20px;
+      line-height: 1;
+    }
+  }
+
+  // 遮罩层
+  .sidebar-overlay {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .sidebar.open + .sidebar-overlay {
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  body.sidebar-open .site-header {
+    visibility: hidden;
+  }
+
+  // 右侧大纲隐藏
+  .toc-sidebar {
+    opacity: 0 !important;
+    visibility: hidden;
+    overflow: hidden;
+    transition: none;
+    display: none;
+  }
+}
+
+// 侧栏淡入动画
+@keyframes sidebar-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

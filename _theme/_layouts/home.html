@@ -1,0 +1,29 @@
+---
+layout: default
+---
+{% comment %}
+  home.html —— 首页文章索引。
+  
+  与侧栏共享 site.home.sections 的显式排序配置，
+  避免依赖分类推导，使排序在 _config.yml 中一目了然。
+{% endcomment %}
+{{ content }}
+
+{% for item in site.home.sections %}
+  {%- if item.posts.size > 0 -%}
+    <ul class="home-index">
+      <p class="home-index__category">{{ item.name }}</p>
+      {%- for post_path in item.posts -%}
+        {%- assign post = site.posts | where: "path", post_path | first -%}
+        {%- if post -%}
+        <li>
+          {%- assign date_format = post.date | date:"%Y-%m-%d" -%}
+          [{{ date_format }}]&nbsp
+          <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          {%- if post.pro -%}⭐️{%- endif -%}
+        </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+{%- endfor -%}

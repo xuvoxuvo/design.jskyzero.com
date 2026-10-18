@@ -1,0 +1,57 @@
+{% comment %}
+  arb.html —— 数据驱动的 BOSS 招式表格。
+  
+  从 _data/ARB.csv 中按 game 字段筛选渲染表格行，
+  每行包含序号、BOSS 名称、特色标签和招式描述。
+{% endcomment %}
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>BOSS</th>
+      <th>特色</th>
+      <th>招式</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- assign index = 0  -%}
+    {%- for line in site.data.ARB -%}
+    {% if line.game == include.filter %}
+    {%- assign index = index | plus: 1  -%}
+    <tr>
+      <td>{{ index }}</td>
+      <td>{{ line.boss }}</td>
+      <td>
+          {% if line.feature != nil and line.feature != "" and line.feature != " " %}
+          {{ line.feature | newline_to_br }}
+          {% endif %}
+
+          {%- assign tag = line.image_tag1-%}
+          {% if tag != nil and tag != "" and tag != " " %}
+            <img src="https://img.shields.io/badge/{{ tag }}.svg?style=flat" alt="{{ tag }}">
+          {% endif %}
+
+          {%- assign tag = line.attack_tag2 -%}
+          {% if tag != nil and tag != "" and tag != " " %}
+            <img src="https://img.shields.io/badge/{{ tag }}.svg?style=flat" alt="{{ tag }}">
+          {% endif %}
+
+          {%- assign tag =line.tag3 -%}
+          {% if tag != nil and tag != "" and tag != " " %}
+            <img src="https://img.shields.io/badge/{{ tag }}.svg?style=flat" alt="{{ tag }}">
+          {% endif %}
+
+          {%- assign tag = line.tag4 -%}
+          {% if tag != nil and tag != "" and tag != " " %}
+            <img src="https://img.shields.io/badge/{{ tag }}.svg?style=flat" alt="{{ tag }}">
+          {% endif %}
+          
+      </td>
+      <td>
+        {{ line.skills | newline_to_br }}
+      </td>
+    </tr>
+    {% endif %}
+    {%- endfor -%}
+  </tbody>
+</table>
