@@ -24,9 +24,8 @@ platforms :windows, :jruby do
   gem "tzinfo-data"
 end
 
-# 🛠️ 修复弃用警告：同样将此处的平台声明修改为 :windows
-# Performance-booster for watching directories on Windows
-gem "wdm", "~> 0.1.1", :platforms => :windows
+# 已移除 wdm：0.1.1 自 2015 年停更，在 Ruby 3.2+ 上无法编译。
+# 缺少它时 listen 会自动退回轮询模式，`jekyll serve --watch` 功能不受影响。
 gem "webrick", "~> 1.7"
 gem "jekyll-mermaid", "~> 1.0"
 gem 'jekyll-sass-converter', "~> 3.1"
