@@ -23,7 +23,8 @@ permalink: /project/
 
 |时间|标签|课题|
 |--|--|--|
-|🚩已完成|游戏设计|[动作游戏设计知识库.AI驱动](https://jskyzero.github.io/ActionGameDesign.ByAI/)|
+|🚩已完成|游戏设计|[动作游戏设计知识库.AI驱动](https://xuvoxuvo.github.io/action-game-design-by-ai/)|
+|🚩已完成|游戏设计|[act-hitbox](https://xuvoxuvo.github.io/act-hitbox/)|
 |进行中|游戏设计|动作游戏中的节奏感|
 
 
