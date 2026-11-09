@@ -46,7 +46,7 @@ jobs:
       - name: 设置 Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3.0'
+          ruby-version: '3.3'
           bundler-cache: true # 自动运行 bundle install 并缓存 gems
 
       - name: 验证 Ruby 插件及页脚开关
