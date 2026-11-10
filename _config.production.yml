@@ -9,9 +9,7 @@ exclude:
   - Gemfile.lock
   - vendor
   - npm-debug.log
-  - assets/font
   - assets/draw.io
   - '**/*.pptx'
   - '**/*.drawio'
   - '**/*.xmind'
-  - '**/*.psd'

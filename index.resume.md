@@ -80,7 +80,7 @@ jsky，动作游戏战斗策划（怪物方向），98年出生，目前7年工�
 ||讨鬼传/极、真三国无双5/6/7/无双大蛇Z等|✔️通关|
 |Platinum Games|贝优妮塔1/2、异界锁链、忍龙4|✔️通关|
 |其他|碧蓝幻想Relink、最初狂战士卡赞|🏆全成就|
-|国产|**黑神话悟空**、无限机兵、明末渊虚之羽|🏆全成就|
+|国产|**黑神话悟空**、无限机兵、明末渊虚之羽、**影之刃零**|🏆全成就|
 
 |<img src="https://card.exophase.com/2/0/70821.png?1605682929">|<img src="/assets/img/others/resume/games.PNG"  style="max-height:142px;">|
 {: .resume-images-table}
@@ -117,7 +117,7 @@ jsky，动作游戏战斗策划（怪物方向），98年出生，目前7年工�
 
 ### 关于编程/开源/个人博客
 
-{% if site.github_repo == 'jskyzero/design.jskyzero.com' %}|<img src="https://github-readme-stats-oyovoyo.vercel.app/api?username=jskyzero&theme=dracula&show_icons=true&hide_border=true&count_private=true">|<img src="https://streak-stats.demolab.com/?user=jskyzero&theme=dracula&hide_border=true">|{% endif %}
+{% if site.github_repo == 'jskyzero/design.jskyzero.com' %}|<img src="https://github-stats-extended.vercel.app/api/top-langs?username=jskyzero&layout=compact&langs_count=10&theme=dracula">|<img src="https://streak-stats.demolab.com/?user=jskyzero&theme=dracula&hide_border=true">|{% endif %}
 
 长期维护个人博客（[design.jskyzero.com](https://design.jskyzero.com/)）和一些开放性文档（如[12种动作机制与160+案例](https://docs.qq.com/slide/DUmNkc2dhcVRXdWZa)），秉持“开源”理念——**将经验与见解长期、持续地分享，希望能让更多人受益、学习与改进。**推动游戏行业发展进步，让玩家能够体验到更多精彩好玩的游戏。
 
